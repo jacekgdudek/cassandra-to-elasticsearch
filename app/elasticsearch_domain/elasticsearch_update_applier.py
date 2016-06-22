@@ -13,9 +13,10 @@ class ElasticsearchUpdateApplier(AbstractUpdateApplier):
         self._elasticsearch_client = elasticsearch_client
 
     def _check_namespace_and_table_exists(self, identifier):
-        if not self._elasticsearch_client.indices.exists(index=identifier.namespace):
+        print "Checking elastic search index existance -> {}".format(identifier.table)
+        if not self._elasticsearch_client.indices.exists(index=identifier.table):
             raise InvalidSchemaException(identifier=identifier,
                 message="Index does not exist on Elasticsearch.")
-        if not self._elasticsearch_client.indices.exists_type(index=identifier.namespace, doc_type=identifier.table):
-            raise InvalidSchemaException(identifier=identifier,
-                message="Type does not exist on Elasticsearch.")
+        # if not self._elasticsearch_client.indices.exists_type(index=identifier.namespace, doc_type=identifier.table):
+        #     raise InvalidSchemaException(identifier=identifier,
+        #         message="Type does not exist on Elasticsearch.")

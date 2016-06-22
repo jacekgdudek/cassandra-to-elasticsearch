@@ -29,7 +29,10 @@ class CassandraDocumentStore(object):
             """
             % (identifier.namespace, identifier.table, self._id_column_name, identifier.key)
         )
+
+        print ("in here {} ".format(statement))
         rows = self._client.execute(statement)
+        print ("in here2{}".format(rows))
         return self._to_document(identifier, rows)
 
     def create(self, document):
@@ -152,9 +155,20 @@ class CassandraDocumentStore(object):
 
         timestamp = attrgetter(self._timestamp_column_name)(row)
         if timestamp:
-            document.timestamp = arrow.get(timestamp).float_timestamp
+            # prepare timestamp
+            _timestamp = "{}".format(timestamp) 
+            timestamp_length = 10
+            if len(_timestamp) > timestamp_length:
+                _timestamp = _timestamp[:timestamp_length]
+
+            print "in"
+            print timestamp
+            print _timestamp
+            document.timestamp = arrow.get(_timestamp).float_timestamp
+            print document.timestamp
 
         for field_name in row.__dict__:
+            print("assigning fields : {}".format(field_name))
             if field_name != self._timestamp_column_name and field_name != self._id_column_name:
                 field_value = attrgetter(field_name)(row)
                 document.add_field(field_name, field_value)

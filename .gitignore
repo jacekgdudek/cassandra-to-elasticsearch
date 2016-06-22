@@ -18,3 +18,5 @@ env/
 
 # Application specific
 state.yaml
+create-log-schema.cql
+create-log-schema.cql.1

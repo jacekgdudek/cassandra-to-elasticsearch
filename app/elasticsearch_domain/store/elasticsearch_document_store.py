@@ -12,6 +12,7 @@ from app.elasticsearch_domain.store.elasticsearch_response_util import Elasticse
 
 
 def _build_document(identifier, timestamp, source):
+    print timestamp
     if not timestamp:
         raise InvalidSchemaException(identifier=identifier,
                 message="Could not retrieve '_timestamp' for Elasticsearch document. Please check your mappings.")
@@ -41,18 +42,18 @@ class ElasticsearchDocumentStore(AbstractElasticsearchStore):
         super(ElasticsearchDocumentStore, self).__init__(client)
 
     def read(self, identifier):
-        return self._base_read(identifier.namespace, identifier.table, identifier.key)
+        return self._base_read(identifier.table, identifier.namespace, identifier.key)
 
     def delete(self, identifier):
-        self._base_delete(identifier.namespace, identifier.table, identifier.key)
+        self._base_delete(identifier.table, identifier.namespace, identifier.key)
 
     def create(self, document):
         identifier = document.identifier
-        self._base_create(identifier.namespace, identifier.table, identifier.key, document)
+        self._base_create(identifier.table, identifier.namespace, identifier.key, document)
 
     def update(self, document):
         identifier = document.identifier
-        self._base_update(identifier.namespace, identifier.table, identifier.key, document)
+        self._base_update(identifier.table, identifier.namespace, identifier.key, document)
 
     def search(self, query, scroll_time=_DEFAULT_SCROLL_TIME):
         response_iterator = elasticsearch.helpers.scan(client=self._client, query=query, scroll=scroll_time,

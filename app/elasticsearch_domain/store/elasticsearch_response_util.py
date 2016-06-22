@@ -7,6 +7,7 @@ class ElasticsearchResponseUtil:
 
     @classmethod
     def extract_timestamp(cls, response):
+        print(response)
         if "fields" in response and "_timestamp" in response["fields"]:
             _timestamp = response["fields"]["_timestamp"]
             if _timestamp:

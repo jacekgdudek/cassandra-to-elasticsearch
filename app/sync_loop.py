@@ -25,6 +25,7 @@ class SyncLoop:
 
     def run(self):
         try:
+            print "running loop"
             state = self._state_store.load()
             self.__initial_sync_if_necessary(state)
 
@@ -40,8 +41,8 @@ class SyncLoop:
     def __initial_sync_if_necessary(self, state):
         if not state.last_cassandra_to_elasticsearch_sync:
             self.__initial_cassandra_to_elasticsearch_sync(state)
-        if not state.last_elasticsearch_to_cassandra_sync:
-            self.__initial_elasticsearch_to_cassandra_sync(state)
+        # if not state.last_elasticsearch_to_cassandra_sync:
+        #     self.__initial_elasticsearch_to_cassandra_sync(state)
 
     def __initial_cassandra_to_elasticsearch_sync(self, state):
         self._logger.warning("Initial Cassandra to Elasticsearch sync. This might take a while...")

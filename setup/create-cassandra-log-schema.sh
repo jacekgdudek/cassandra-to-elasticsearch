@@ -16,12 +16,12 @@ if [ ! -d ${cassandra_dir} ]; then
 	exit 1
 fi
 
-user=`whoami`
-cassandra_pid=`pgrep -u ${user} -f cassandra || true`
-if [ -z "${cassandra_pid}" ]; then
-    echo "Cassandra is not running. Please start it and run this script again."
-    exit 1
-fi
+# user=`whoami`
+# cassandra_pid=`pgrep -u ${user} -f cassandra || true`
+# if [ -z "${cassandra_pid}" ]; then
+#     echo "Cassandra is not running. Please start it and run this script again."
+#     exit 1
+# fi
 
 wget ${cql_download_url}
 
