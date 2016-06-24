@@ -15,7 +15,7 @@ CASSANDRA_PORT_ENVIRONMENT_VARIABLE = "CASSANDRA_PORT"
 CASSANDRA_NODES_ENVIRONMENT_VARIABLE = "CASSANDRA_NODES"
 
 _DEFAULT_STATE_FILENAME = "state.yaml"
-_DEFAULT_LOGGER_LEVEL = logging.INFO
+_DEFAULT_LOGGER_LEVEL = logging.ERROR
 _DEFAULT_SETTINGS_FILE_NAME = "settings.yaml"
 
 
@@ -67,7 +67,6 @@ class Application:
     def run(self, state_file_name=_DEFAULT_STATE_FILENAME, logger_level=_DEFAULT_LOGGER_LEVEL):
         try:
             self._setup_logger(logger_level)
-            10/0
 
             cassandra_cluster = self.get_cassandra_cluster()
             elasticsearch_client = self.get_elasticsearch_client()

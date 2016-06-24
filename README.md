@@ -1,17 +1,5 @@
 **FORKED FROM [felipead/cassandra-to-elasticsearch](https://github.com/felipead/cassandra-to-elasticsearch)**
 
-[![Build Status](https://travis-ci.org/felipead/cassandra-to-elasticsearch-sync.svg?branch=master)](https://travis-ci.org/felipead/cassandra-to-elasticsearch-sync)
-[![Coverage Status](https://coveralls.io/repos/felipead/cassandra-to-elasticsearch-sync/badge.svg?branch=master)](https://coveralls.io/r/felipead/cassandra-elasticsearch-sync?branch=master)
-[![TODO](https://badge.waffle.io/felipead/cassandra-to-elasticsearch-sync.png?label=ready&title=TODO)](https://waffle.io/felipead/cassandra-to-elasticsearch-sync)
-
-`CASSANDRA => ELASTICSEARCH`
-============================
-
-This is a daemon service for efficient and incremental sync from [Cassandra](https://cassandra.apache.org) to [Elasticsearch](https://www.elastic.co).
-
-It is implemented in Python and uses my [Cassandra Logger](http://github.com/felipead/cassandra-logger) trigger to keep track of changes in the Cassandra database, thus making it very efficient. Synchronization is also idempotent and fault tolerant. This means that running the service with the same data more than once will produce exactly the same results.
-
-The purpose of this project is to serve as an example on how to synchronize data between major NoSQL databases. Most of the code and the techniques presented here can be easily leveraged to synchronize other databases.
 
 REQUIREMENTS
 ------------

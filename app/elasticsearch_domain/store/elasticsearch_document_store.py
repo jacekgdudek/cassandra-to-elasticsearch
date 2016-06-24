@@ -43,16 +43,24 @@ class ElasticsearchDocumentStore(AbstractElasticsearchStore):
     def read(self, identifier):
         return self._base_read(identifier.table, identifier.namespace, identifier.key)
 
-    def delete(self, identifier):
-        self._base_delete(identifier.table, identifier.namespace, identifier.key)
+    def delete(self, identifier, prepare_query=False):
+        return self._base_delete(identifier.table, identifier.namespace, identifier.key, prepare_query)
 
-    def create(self, document):
+    def create(self, document, prepare_query=False):
         identifier = document.identifier
-        self._base_create(identifier.table, identifier.namespace, identifier.key, document)
+        return self._base_create(identifier.table, identifier.namespace, identifier.key, document, prepare_query)
 
-    def update(self, document):
+    def update(self, document, prepare_query=False):
         identifier = document.identifier
-        self._base_update(identifier.table, identifier.namespace, identifier.key, document)
+        return self._base_update(identifier.table, identifier.namespace, identifier.key, document, prepare_query)
+
+    def upsert(self, document, prepare_query=False):
+        identifier = document.identifier
+        return self._base_upsert(identifier.table, identifier.namespace, identifier.key, document, prepare_query)
+
+    def batch(self, actions):
+        if len(actions):
+            return self._base_batch(actions)
 
     def search(self, query, scroll_time=_DEFAULT_SCROLL_TIME):
         response_iterator = elasticsearch.helpers.scan(client=self._client, query=query, scroll=scroll_time,

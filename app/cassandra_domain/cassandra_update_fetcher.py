@@ -3,6 +3,7 @@ from app.cassandra_domain.store.cassandra_log_entry_store import CassandraLogEnt
 from app.core.abstract_update_fetcher import AbstractUpdateFetcher
 from app.core.model.update import Update
 
+from time import time
 
 class CassandraUpdateFetcher(AbstractUpdateFetcher):
 
@@ -15,10 +16,18 @@ class CassandraUpdateFetcher(AbstractUpdateFetcher):
             cassandra_cluster, settings.cassandra_id_column_name, settings.cassandra_timestamp_column_name)
 
     def _fetch_data(self, minimum_timestamp):
+        start_time = time()
         if minimum_timestamp is None:
-            return self._log_entry_store.search_all()
+            return_value = self._log_entry_store.search_all()
         else:
-            return self._log_entry_store.search_by_minimum_timestamp(minimum_timestamp)
+            return_value = self._log_entry_store.search_by_minimum_timestamp(minimum_timestamp)
+
+        end_time = time()
+
+        print "Cassandra fetch took {}s".format(
+            end_time-start_time
+        )
+        return return_value
 
     def _to_update(self, data):
         log_entry = data
