@@ -10,7 +10,6 @@ class AbstractUpdateFetcher(object):
 
     def fetch_updates(self, minimum_timestamp=None):
         self.__data_iterator = self._fetch_data(minimum_timestamp)
-        print("Fetched data")
         return self
 
     def __iter__(self):

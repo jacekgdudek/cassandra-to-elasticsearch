@@ -15,7 +15,6 @@ class CassandraUpdateFetcher(AbstractUpdateFetcher):
             cassandra_cluster, settings.cassandra_id_column_name, settings.cassandra_timestamp_column_name)
 
     def _fetch_data(self, minimum_timestamp):
-        print "Cassandra fetching data after {}".format(minimum_timestamp)
         if minimum_timestamp is None:
             return self._log_entry_store.search_all()
         else:

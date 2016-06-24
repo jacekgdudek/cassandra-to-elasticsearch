@@ -5,6 +5,7 @@ from cassandra.cluster import Cluster
 from elasticsearch import Elasticsearch
 from app.settings import Settings
 from app.sync_loop import SyncLoop
+from app.ext.notifications import Notifications
 
 
 ELASTICSEARCH_URLS_ENVIRONMENT_VARIABLE = "ELASTICSEARCH_URLS"
@@ -64,10 +65,15 @@ class Application:
             self._settings = Settings.load_from_file(_DEFAULT_SETTINGS_FILE_NAME)
 
     def run(self, state_file_name=_DEFAULT_STATE_FILENAME, logger_level=_DEFAULT_LOGGER_LEVEL):
-        self._setup_logger(logger_level)
+        try:
+            self._setup_logger(logger_level)
+            10/0
 
-        cassandra_cluster = self.get_cassandra_cluster()
-        elasticsearch_client = self.get_elasticsearch_client()
+            cassandra_cluster = self.get_cassandra_cluster()
+            elasticsearch_client = self.get_elasticsearch_client()
 
-        sync_loop = SyncLoop(cassandra_cluster, elasticsearch_client, self._settings, state_file_name)
-        sync_loop.run()
+            sync_loop = SyncLoop(cassandra_cluster, elasticsearch_client, self._settings, state_file_name)
+            sync_loop.run()
+        except Exception as e:
+            notification_provider = Notifications(self._settings)
+            notification_provider.send_exception(e)

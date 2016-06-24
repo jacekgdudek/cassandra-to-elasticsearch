@@ -20,3 +20,6 @@ env/
 state.yaml
 create-log-schema.cql
 create-log-schema.cql.1
+
+# settings
+settings.yaml

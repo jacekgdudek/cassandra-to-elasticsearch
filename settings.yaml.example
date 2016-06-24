@@ -1,0 +1,14 @@
+environment: production
+
+interval_between_runs: 10 # seconds
+cassandra_log_keyspace: logger
+cassandra_log_table: log
+cassandra_id_column_name: id
+cassandra_timestamp_column_name: <cassandra_timestamp>
+
+sendgrid_api_key: <api_key>
+sendgrid_email_to: <email_address>  
+sendgrid_email_title: Sync Failure 
+
+slack_api_key: <api_key>
+slack_bot_name: C to ES Sync

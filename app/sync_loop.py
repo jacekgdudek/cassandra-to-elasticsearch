@@ -25,7 +25,6 @@ class SyncLoop:
 
     def run(self):
         try:
-            print "running loop"
             state = self._state_store.load()
             self.__initial_sync_if_necessary(state)
 
@@ -57,7 +56,7 @@ class SyncLoop:
     def __incremental_sync(self, state):
         self.__incremental_cassandra_to_elasticsearch_sync(state)
         sleep(_INTERVAL_BETWEEN_RIVER_SYNCS)
-        self.__incremental_elasticsearch_to_cassandra_sync(state)
+        # self.__incremental_elasticsearch_to_cassandra_sync(state)
 
     def __incremental_cassandra_to_elasticsearch_sync(self, state):
         self._logger.info("Syncing Cassandra to Elasticsearch since %s...",

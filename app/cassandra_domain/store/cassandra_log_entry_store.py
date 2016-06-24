@@ -51,7 +51,6 @@ class CassandraLogEntryStore(AbstractCassandraStore):
             log_entry.updated_columns))
 
     def search_all(self, timeout=None):
-        print "Cassandra fetching data after {}".format(timeout)
         statement = self.prepare_statement(self._build_select_query())
         rows = self.execute(statement, timeout)
         return CassandraLogEntryIterableResult(rows)

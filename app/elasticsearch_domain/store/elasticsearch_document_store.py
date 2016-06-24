@@ -12,7 +12,6 @@ from app.elasticsearch_domain.store.elasticsearch_response_util import Elasticse
 
 
 def _build_document(identifier, timestamp, source):
-    print timestamp
     if not timestamp:
         raise InvalidSchemaException(identifier=identifier,
                 message="Could not retrieve '_timestamp' for Elasticsearch document. Please check your mappings.")
